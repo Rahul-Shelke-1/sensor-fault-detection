@@ -77,6 +77,10 @@ class ModelEvaluation:
         try:
             test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
             x, y = test_df.drop(TARGET_COLUMN, axis=1), test_df[TARGET_COLUMN]
+            y = test_df[TARGET_COLUMN].map({
+                "neg": 0,
+                "pos": 1,
+            })
             trained_model_f1_score = (
                 self.model_trainer_artifact.metric_artifact.f1_score
             )
