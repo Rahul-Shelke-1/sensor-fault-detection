@@ -2,8 +2,8 @@ import json
 import sys
 
 import pandas as pd
-from evidently.report import Report
-from evidently.metric_preset import DataDriftPreset
+from evidently import Report
+from evidently.presets import DataDriftPreset
 from pandas import DataFrame
 
 from sensor_fault_detection.constant.training_pipeline import SCHEMA_FILE_PATH
@@ -65,9 +65,9 @@ class DataValidation:
         """
         try:
             data_drift_profile = Report([DataDriftPreset()])
-            data_drift_profile.run(reference_data=reference_df, current_data=current_df)
+            snapshot = data_drift_profile.run(reference_data=reference_df, current_data=current_df)
 
-            report = data_drift_profile.json()
+            report = snapshot.json()
             json_report = json.loads(report)
 
             write_yaml_file(
@@ -75,12 +75,26 @@ class DataValidation:
                 content=json_report,
             )
 
-            n_features = json_report["metrics"][0]["result"]["number_of_columns"]
-            n_drifted_features = json_report["metrics"][0]["result"]["number_of_drifted_columns"]
+            report_dict = snapshot.dict()
 
-            logging.info(f"{n_drifted_features}/{n_features} drift detected.")
+            drift_metric = next(
+                metric
+                for metric in report_dict["metrics"]
+                if metric["metric_name"].startswith("DriftedColumnsCount")
+            )
 
-            drift_status = json_report["metrics"][0]['result']['dataset_drift']
+            n_features = current_df.shape[1]
+            n_drifted_features = drift_metric["value"]["count"]
+            drift_share = drift_metric["value"]["share"]
+
+            logging.info(
+                "%s/%s features drifted (%.2f%%).",
+                n_drifted_features,
+                n_features,
+                drift_share * 100,
+            )
+
+            drift_status = drift_share >= 0.5
             return drift_status
         except Exception as e:
             raise SensorFaultException(e, sys)

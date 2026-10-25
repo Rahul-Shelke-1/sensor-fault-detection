@@ -37,6 +37,10 @@ class SensorData:
             df = pd.DataFrame(list(collection.find()))
             if "_id" in df.columns.to_list():
                 df = df.drop(columns=["_id"], axis=1)
+
+            # Convert string "na" values to Pandas missing values
+            df = df.replace(r"(?i)^na$", np.nan, regex=True)
+            
             return df
 
         except Exception as e:
