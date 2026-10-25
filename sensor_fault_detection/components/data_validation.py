@@ -75,12 +75,26 @@ class DataValidation:
                 content=json_report,
             )
 
-            n_features = json_report["metrics"][0]["result"]["number_of_columns"]
-            n_drifted_features = json_report["metrics"][0]["result"]["number_of_drifted_columns"]
+            report_dict = snapshot.dict()
 
-            logging.info(f"{n_drifted_features}/{n_features} drift detected.")
+            drift_metric = next(
+                metric
+                for metric in report_dict["metrics"]
+                if metric["metric_name"].startswith("DriftedColumnsCount")
+            )
 
-            drift_status = json_report["metrics"][0]['result']['dataset_drift']
+            n_features = current_df.shape[1]
+            n_drifted_features = drift_metric["value"]["count"]
+            drift_share = drift_metric["value"]["share"]
+
+            logging.info(
+                "%s/%s features drifted (%.2f%%).",
+                n_drifted_features,
+                n_features,
+                drift_share * 100,
+            )
+
+            drift_status = drift_share >= 0.5
             return drift_status
         except Exception as e:
             raise SensorFaultException(e, sys)
