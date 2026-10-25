@@ -6,24 +6,43 @@ This project aims to solve a problem where we can predict whether a truck is lik
 
 ---
 
-## 📂 Dataset
+## 📂 Dataset & Features
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 📊 Dataset
 
 - **Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/APS+Failure+at+Scania+Trucks)
 - **Rows:** ~36,000
-- **Target Variable:** `class` (pos = APS failure, neg = non-APS failure)
-- **Notebook:** [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Otojog7mKqfd6CoGvkQaV7eZ_Ej-kErV?usp=drive_link)
+- **Target:** `class`
+  - `pos` — APS failure
+  - `neg` — Non-APS failure
 
-### **Features:**
+**📓 Experiment Notebook**
 
-- 170+ sensor readings and signal features from truck components
-- All feature names are anonymized (e.g., `sensor_00`, `sensor_01`, ...)
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Otojog7mKqfd6CoGvkQaV7eZ_Ej-kErV?usp=drive_link)
 
-| Feature Example  | Description                                       |
-|------------------|---------------------------------------------------|
-| `sensor_00`      | Sensor signal from a truck system                 |
-| `sensor_01`      | not exposed dur to data privacy reasons           |
-| ...              | ...                                               |
-| `class`          | Target (pos = APS failure, neg = non-APS failure) |
+</td>
+<td width="50%" valign="top">
+
+### ⚙️ Features
+
+- **170+ sensor readings and signal features**
+- Captures measurements from truck components
+- Feature names are anonymized for data privacy
+
+| Feature | Description |
+|---|---|
+| `sensor_00` | Anonymized sensor signal |
+| `sensor_01` | Anonymized sensor signal |
+| `...` | Additional sensor features |
+| `class` | APS failure target (`pos` / `neg`) |
+
+</td>
+</tr>
+</table>
 
 ---
 
