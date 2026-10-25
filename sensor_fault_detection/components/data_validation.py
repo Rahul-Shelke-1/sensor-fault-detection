@@ -2,8 +2,8 @@ import json
 import sys
 
 import pandas as pd
-from evidently.report import Report
-from evidently.metric_preset import DataDriftPreset
+from evidently import Report
+from evidently.presets import DataDriftPreset
 from pandas import DataFrame
 
 from sensor_fault_detection.constant.training_pipeline import SCHEMA_FILE_PATH
@@ -65,9 +65,9 @@ class DataValidation:
         """
         try:
             data_drift_profile = Report([DataDriftPreset()])
-            data_drift_profile.run(reference_data=reference_df, current_data=current_df)
+            snapshot = data_drift_profile.run(reference_data=reference_df, current_data=current_df)
 
-            report = data_drift_profile.json()
+            report = snapshot.json()
             json_report = json.loads(report)
 
             write_yaml_file(
