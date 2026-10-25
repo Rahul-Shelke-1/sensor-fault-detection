@@ -1,8 +1,42 @@
-# 🚛 Air Pressure System Failure Prediction using Machine Learning
+# 🚛 Air Pressure System Failure Prediction
 
-## 📌 Overview
+**Machine learning for early detection of Air Pressure System (APS) failures in heavy-duty trucks.**
 
-This project aims to solve a problem where we can predict whether a truck is likely to experience a failure in the **Air Pressure System (APS)** — a critical component responsible for operations like **braking** and **gear shifting**. Early detection of potential APS failures enables proactive maintenance, reduces downtime, and ensures road safety.
+An end-to-end classification project using sensor data to identify potential APS failures, with an emphasis on imbalanced learning, failure detection, model evaluation, and explainability.
+
+[![Live Application](https://img.shields.io/badge/Live%20App-Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://sensor-fault-detection.streamlit.app/) ·
+[![Open in Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Otojog7mKqfd6CoGvkQaV7eZ_Ej-kErV?usp=drive_link)
+
+---
+
+## 🎯 Problem Statement
+
+The Air Pressure System is a critical component in heavy-duty trucks. Detecting potential failures before they occur can help maintenance teams reduce vehicle downtime and prioritize inspections.
+
+This project uses historical sensor measurements to classify whether a truck is likely to experience an APS failure.
+
+**Key challenges**
+- Highly imbalanced target classes, with failures representing a small proportion of observations.
+- Missing values and high-dimensional sensor data.
+- The trade-off between detecting failures and generating false alarms.
+- The need for interpretable evaluation metrics in a failure-detection setting.
+
+---
+
+## 📊 Model Results
+
+| Model         | ROC-AUC | Recall | F1-Score | Total_cost($) |
+|---------------|---------|--------|----------|---------------|
+| XGBoost       | 0.99    | 0.99   | 0.99     |    4050       |
+
+**Why these metrics?**
+
+- **Recall:** Measures the proportion of actual failures detected.
+- **F1-score:** Balances precision and recall.
+- **ROC-AUC:** Measures how well the model distinguishes between the two classes across classification thresholds.
+- **Total cost:** Should be interpreted using the project's documented false-positive and false-negative cost function.
+
+For industrial failure detection, recall is important, but false alarms also matter because they can lead to unnecessary inspections and maintenance.
 
 ---
 
@@ -46,7 +80,7 @@ This project aims to solve a problem where we can predict whether a truck is lik
 
 ---
 
-## ⚙️ Project Workflow
+## ⚙️ Machine Learning Workflow
 
 ```mermaid
 
@@ -88,37 +122,45 @@ flowchart LR
 
 ```
 
----
 
-## 📊 Results
+### Methodology
 
-| Model         | ROC-AUC | Recall | F1-Score | Total_cost |
-|---------------|---------|--------|----------|------------|
-| XGBoost       | 0.99    | 0.99   | 0.99     |    4050    |
-
+1. **Preprocessing:** Handle missing values, encode the target, and apply feature transformations as required by the selected models.
+2. **Exploratory analysis:** Examine class distribution, sensor signal patterns, and feature relationships.
+3. **Imbalance handling:** Evaluate resampling and class-weighting strategies for the minority failure class.
+4. **Model development:** Compare candidate classification algorithms and tune hyperparameters using appropriate search strategies.
+5. **Evaluation:** Assess model discrimination, failure detection, precision-recall trade-offs, and operational cost.
+6. **Explainability:** Use feature importance and SHAP analysis to investigate which signals influence predictions.
+7. **Inference:** Load the selected trained model in the Streamlit application to produce predictions.
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Languages & Libraries:**  
-  ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
-  ![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white)
-  ![NumPy](https://img.shields.io/badge/NumPy-013243?logo=numpy&logoColor=white)
-  ![Scikit-learn](https://img.shields.io/badge/Scikit--learn-F7931E?logo=scikitlearn&logoColor=white)
-  ![XGBoost](https://img.shields.io/badge/XGBoost-189B56?logo=xgboost&logoColor=white)
-  ![imbalanced-learn](https://img.shields.io/badge/imbalanced--learn-555555?logoColor=white)
+**Programming and data processing**
 
-- **Visualization:**  
-  ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?logo=plotly&logoColor=white)
-  ![Seaborn](https://img.shields.io/badge/Seaborn-4C72B0?logoColor=white)
-  ![Plotly](https://img.shields.io/badge/Plotly-3F4F75?logo=plotly&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?logo=numpy&logoColor=white)
 
-- **Model Explainability:**  
-  ![SHAP](https://img.shields.io/badge/SHAP-8A2BE2?logoColor=white)
+**Machine learning**
 
-- **API Development:**  
-  ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![Scikit-learn](https://img.shields.io/badge/Scikit--learn-F7931E?logo=scikitlearn&logoColor=white)
+![XGBoost](https://img.shields.io/badge/XGBoost-189B56?logo=xgboost&logoColor=white)
+![imbalanced-learn](https://img.shields.io/badge/imbalanced--learn-555555?logoColor=white)
+
+**Visualization and explainability**
+
+![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?logo=matplotlib&logoColor=white)
+![Seaborn](https://img.shields.io/badge/Seaborn-4C72B0?logoColor=white)
+![Plotly](https://img.shields.io/badge/Plotly-3F4F75?logo=plotly&logoColor=white)
+![SHAP](https://img.shields.io/badge/SHAP-8A2BE2?logoColor=white)
+
+**Application and deployment**
+
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)
+![uv](https://img.shields.io/badge/uv-DE5FE9?logo=astral&logoColor=white)
 
 ---
 
@@ -172,39 +214,27 @@ Open the local URL displayed in your terminal to access the application.
 
 ---
 
-## 🚀 Deployment Plan
+## 🚀 Deployment
 
-The model will initially be deployed as an interactive **Streamlit web application** using Streamlit Community Cloud. This provides a simple, publicly accessible interface for demonstrating sensor fault predictions without requiring cloud infrastructure or a production-grade deployment pipeline.
+The application is hosted on Streamlit Community Cloud for public access. The project also documents and demonstrates its cloud infrastructure deployment workflow, allowing the infrastructure to be provisioned for validation and torn down afterward to control costs.
 
-### ⚙️ Current Deployment Stack
+### 🌐 Live Application
 
-- **Streamlit** → Web interface for sensor fault predictions
-- **Scikit-learn** → Load the trained model and generate predictions
-- **GitHub** → Source code management and version control
-- **Streamlit Community Cloud** → Host the application and provide a public URL
+[![Live App](https://img.shields.io/badge/Live%20App-Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://sensor-fault-detection.streamlit.app/)
 
-### ✅ Deployment Workflow
+### 🎥 Cloud Deployment Demo
 
-1. **Push code to GitHub** → Maintain the application code and model artifacts required for inference.
-2. **Deploy to Streamlit Community Cloud** → Connect the GitHub repository and configure the application entry point (`app.py`).
-3. **Load the trained model** → Load the serialized model artifact when the application runs.
-4. **Generate predictions** → Users provide sensor measurements through the web interface and receive fault predictions.
-5. **Share the application** → Publish the Streamlit app URL in the project README and portfolio.
+Watch the recorded walkthrough of the cloud infrastructure deployment, validation, and cleanup process.
 
-### 🔮 Future Enhancements: Production-Grade MLOps
+[![Cloud Deployment Demo](docs/assets/deployment/deployment-demo-thumbnail.png)](YOUR_DEMO_URL)
 
-If time permits, the project can be extended into a production-oriented ML system with automated training, containerized inference, cloud infrastructure, and CI/CD.
+### 🏗️ Architecture
 
-- **Training Pipeline** → Automate data ingestion, preprocessing, model training, evaluation, and artifact generation.
-- **Docker** → Containerize the training and inference environments.
-- **FastAPI** → Develop a dedicated REST API for model predictions.
-- **AWS S3** → Store datasets and trained model artifacts.
-- **AWS ECR** → Store versioned Docker images.
-- **AWS EC2** → Host the containerized prediction API.
-- **GitHub Actions CI/CD** → Automate testing, image builds, and deployment.
-- **MLOps Monitoring** → Introduce prediction monitoring, data and model drift detection, and model retraining workflows.
+![Deployment Architecture](docs/assets/deployment/deployment-architecture.svg)
 
-These enhancements will be implemented incrementally, based on available time and project priorities. The immediate goal is to deliver a working, publicly accessible application, with the option to evolve it into a complete end-to-end MLOps platform later.
+### 📚 Technical Documentation
+
+See the [Deployment Architecture & Infrastructure Documentation](YOUR_DOCUMENTATION_URL) for the infrastructure design, Terraform modules, environment configuration, validation workflow, and resource cleanup procedure.
 
 ---
 
