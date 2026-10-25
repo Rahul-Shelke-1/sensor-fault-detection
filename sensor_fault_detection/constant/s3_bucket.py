@@ -1,1 +1,1 @@
-TRAINING_BUCKET_NAME = "sensor-fault-model-io"
+TRAINING_BUCKET_NAME = "sensor-fault-detection-artifacts"
