@@ -122,55 +122,55 @@ flowchart LR
 
 ---
 
-## 🚀 How to Run Locally
+## 🚀 Run Locally
 
 ### Prerequisites
 
-- Python version supported by the project.
-- [uv](https://docs.astral.sh/uv/getting-started/installation/).
-- Git.
+- [Python](https://www.python.org/downloads/) — compatible with the project
+- [uv](https://docs.astral.sh/uv/getting-started/installation/)
+- [Git](https://git-scm.com/)
 
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/Rahul-Shelke-1/sensor-fault-detection.git
 cd sensor-fault-detection
 ```
 
-### 2. Create the isolated environment
-
-Install the project dependencies using `uv`:
+### 2. Install Dependencies
 
 ```bash
 uv sync --locked
 ```
 
-This creates a project-specific `.venv` environment and installs the dependencies recorded in `uv.lock`, without adding them to your system Python environment.
+Creates a project-specific `.venv` and installs dependencies from `uv.lock`.
 
-### 3. Train and evaluate the model
+### 3. Train the Model (Optional)
 
-Run the training pipeline to preprocess the dataset, train the selected model, evaluate its performance, and save the fitted model artifact.
+If the dataset is available and you want to reproduce training:
 
 ```bash
 uv run python train.py
 ```
 
-Ensure the required dataset is available at the location configured by the training pipeline. The generated artifact must be saved to the path expected by the inference application.
+Ensure the dataset and model artifact paths match the project's configuration.
 
-### 4. Launch the Streamlit application
+### 4. Launch the Application
 
 ```bash
 uv run streamlit run app.py
 ```
 
-Open the local URL printed by Streamlit in your browser and provide sensor inputs to obtain a prediction.
+Open the local URL displayed in your terminal to access the application.
 
 ### Notes
 
 - Run commands from the repository root.
-- Keep the training and inference preprocessing consistent.
-- Do not commit `.venv/` or other local environment files.
-- Follow the repository's documented artifact and dataset paths when running the pipeline.
+- Ensure the trained model artifact exists at the path expected by `app.py`.
+- Keep training and inference preprocessing consistent.
+- Do not commit `.venv/`, datasets, or generated artifacts unless explicitly required.
+
+---
 
 ## 🚀 Deployment Plan
 
