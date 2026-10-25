@@ -29,48 +29,45 @@ This project aims to solve a problem where we can predict whether a truck is lik
 
 ## ⚙️ Project Workflow
 
-1️⃣ **Data Preprocessing**
+```mermaid
 
-- Missing value imputation using constant strategy
-- Encoding binary target labels
-- Feature normalization and scaling
-- Outlier detection and removal
+flowchart LR
+    subgraph TOP[" "]
+        direction LR
+        A["① DATA PREPROCESSING<br/><br/>• Missing value imputation<br/>• Binary target encoding<br/>• Feature scaling<br/>• Outlier detection"]
+        B["② EXPLORATORY DATA ANALYSIS<br/><br/>• Failure rate by class<br/>• Signal distributions<br/>• Feature correlations"]
+        C["③ IMBALANCE HANDLING<br/><br/>• ~3% positive class<br/>• SMOTETomek<br/>• Class weighting"]
+        A --> B --> C
+    end
 
-2️⃣ **Exploratory Data Analysis (EDA)**
+    C --> D
 
-- Failure rate analysis by class
-- Signal distribution comparisons
-- Correlation heatmaps for feature interactions
+    subgraph BOTTOM[" "]
+        direction RL
+        D["④ MODEL BUILDING & TUNING<br/><br/>• 9 classification algorithms<br/>• RandomizedSearchCV<br/>• GridSearchCV<br/>• Bayesian optimization"]
+        E["⑤ MODEL EVALUATION<br/><br/>• Precision · Recall<br/>• F1-score · ROC-AUC<br/>• Focus on Recall & F1"]
+        F["⑥ MODEL EXPLAINABILITY<br/><br/>• Tree-based feature importance<br/>• SHAP value analysis"]
+        D --> E --> F
+    end
 
-3️⃣ **Handling Class Imbalance**
+    classDef prep fill:#DBEAFE,stroke:#2563EB,color:#1E3A8A,stroke-width:1.5px
+    classDef eda fill:#D1FAE5,stroke:#059669,color:#065F46,stroke-width:1.5px
+    classDef balance fill:#FEF3C7,stroke:#D97706,color:#92400E,stroke-width:1.5px
+    classDef model fill:#EDE9FE,stroke:#7C3AED,color:#4C1D95,stroke-width:1.5px
+    classDef eval fill:#CFFAFE,stroke:#0891B2,color:#164E63,stroke-width:1.5px
+    classDef explain fill:#FCE7F3,stroke:#DB2777,color:#831843,stroke-width:1.5px
 
-- Significant imbalance (only ~3% positive class)
-- Used **SMOTETomek** and **Class Weight Balancing** to address skewed distribution
+    class A prep
+    class B eda
+    class C balance
+    class D model
+    class E eval
+    class F explain
 
-4️⃣ **Model Building**
+    style TOP fill:transparent,stroke:transparent
+    style BOTTOM fill:transparent,stroke:transparent
 
-- **Algorithms used:**
-  - Logistic Regression
-  - Support Vector Classifier (SVC)
-  - K-Nearest Neighbors
-  - Decision Tree
-  - Random Forest
-  - Gradient Boosting
-  - AdaBoost
-  - XGBoost
-  - CatBoost
-
-- **Hyperparameter Tuning:** RandomizedSearchCV / GridSearchCV / Bayesian Optimization
-
-5️⃣ **Model Evaluation**
-
-- Metrics used: Precision, Recall, F1-Score, ROC-AUC
-- **Priority on Recall & F1-Score** to reduce false positive and false negatives (critical in preventive maintenance)
-
-6️⃣ **Model Explainability**
-
-- Feature importance using tree-based models
-- SHAP value visualization for model insights
+```
 
 ---
 
