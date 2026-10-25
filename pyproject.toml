@@ -20,6 +20,7 @@ dependencies = [
     "botocore>=1.43.118",
     "mypy-boto3-s3>=1.43.106",
     "boto3>=1.43.118",
+    "streamlit>=1.66.1",
 ]
 
 [build-system]
