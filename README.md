@@ -145,30 +145,37 @@ Open the local URL printed by Streamlit in your browser and provide sensor input
 
 ## 🚀 Deployment Plan
 
-The model will be deployed as a **REST API** using **FastAPI**, hosted on **AWS EC2**, with the following architecture:
+The model will initially be deployed as an interactive **Streamlit web application** using Streamlit Community Cloud. This provides a simple, publicly accessible interface for demonstrating sensor fault predictions without requiring cloud infrastructure or a production-grade deployment pipeline.
 
-### ⚙️ **Deployment Stack**
+### ⚙️ Current Deployment Stack
 
-- **FastAPI** → REST API serving fault detections
-- **AWS S3** → Store model artifacts (e.g., trained `.pkl` files)
-- **AWS ECR (Elastic Container Registry)** → Docker image registry
-- **AWS EC2** → Hosting the Dockerized FastAPI service
-- **Github Actions CI/CD** → Automate build, test, and deployment pipelines
-- **Docker** → Containerization of the application
+- **Streamlit** → Web interface for sensor fault predictions
+- **Scikit-learn** → Load the trained model and generate predictions
+- **GitHub** → Source code management and version control
+- **Streamlit Community Cloud** → Host the application and provide a public URL
 
-### ✅ **CI/CD Workflow**
+### ✅ Deployment Workflow
 
-1. **Push code to GitHub** → Trigger github actions Pipeline
-2. **Github Actions**:
+1. **Push code to GitHub** → Maintain the application code and model artifacts required for inference.
+2. **Deploy to Streamlit Community Cloud** → Connect the GitHub repository and configure the application entry point (`app.py`).
+3. **Load the trained model** → Load the serialized model artifact when the application runs.
+4. **Generate predictions** → Users provide sensor measurements through the web interface and receive fault predictions.
+5. **Share the application** → Publish the Streamlit app URL in the project README and portfolio.
 
-   - Build Docker image
-   - Push image to **AWS ECR**
-   - Deploy/update container on **AWS EC2**
-3. **FastAPI** running on EC2 → Exposes `/predict` endpoint for fault detection
-4. Model artifacts loaded from **AWS S3** during container startup
+### 🔮 Future Enhancements: Production-Grade MLOps
 
+If time permits, the project can be extended into a production-oriented ML system with automated training, containerized inference, cloud infrastructure, and CI/CD.
 
-![Deployment-Architecture]()
+- **Training Pipeline** → Automate data ingestion, preprocessing, model training, evaluation, and artifact generation.
+- **Docker** → Containerize the training and inference environments.
+- **FastAPI** → Develop a dedicated REST API for model predictions.
+- **AWS S3** → Store datasets and trained model artifacts.
+- **AWS ECR** → Store versioned Docker images.
+- **AWS EC2** → Host the containerized prediction API.
+- **GitHub Actions CI/CD** → Automate testing, image builds, and deployment.
+- **MLOps Monitoring** → Introduce prediction monitoring, data and model drift detection, and model retraining workflows.
+
+These enhancements will be implemented incrementally, based on available time and project priorities. The immediate goal is to deliver a working, publicly accessible application, with the option to evolve it into a complete end-to-end MLOps platform later.
 
 ---
 
