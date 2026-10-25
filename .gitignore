@@ -196,3 +196,5 @@ cython_debug/
 notebooks/catboost_info
 logs
 artifact
+
+.vscode
