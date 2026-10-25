@@ -93,17 +93,55 @@ This project aims to solve a problem where we can predict whether a truck is lik
 
 ---
 
-## 🚀 How to Run
+## 🚀 How to Run Locally
+
+### Prerequisites
+
+- Python version supported by the project.
+- [uv](https://docs.astral.sh/uv/getting-started/installation/).
+- Git.
+
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Rahul-404/sensor_fault_detection.git
-cd sensor_fault_prediction
-pip install -r requirements_dev.txt
-python demo.py
-python app.py
+git clone https://github.com/Rahul-Shelke-1/sensor-fault-detection.git
+cd sensor-fault-detection
 ```
 
----
+### 2. Create the isolated environment
+
+Install the project dependencies using `uv`:
+
+```bash
+uv sync --locked
+```
+
+This creates a project-specific `.venv` environment and installs the dependencies recorded in `uv.lock`, without adding them to your system Python environment.
+
+### 3. Train and evaluate the model
+
+Run the training pipeline to preprocess the dataset, train the selected model, evaluate its performance, and save the fitted model artifact.
+
+```bash
+uv run python train.py
+```
+
+Ensure the required dataset is available at the location configured by the training pipeline. The generated artifact must be saved to the path expected by the inference application.
+
+### 4. Launch the Streamlit application
+
+```bash
+uv run streamlit run app.py
+```
+
+Open the local URL printed by Streamlit in your browser and provide sensor inputs to obtain a prediction.
+
+### Notes
+
+- Run commands from the repository root.
+- Keep the training and inference preprocessing consistent.
+- Do not commit `.venv/` or other local environment files.
+- Follow the repository's documented artifact and dataset paths when running the pipeline.
 
 ## 🚀 Deployment Plan
 
