@@ -55,15 +55,15 @@ class ModelEvaluation:
         try:
             bucket_name = self.model_eval_config.bucket_name
             model_path = self.model_eval_config.s3_model_key_path
-            heart_stroke_estimator = SensorFaultEstimator(
+            sensor_fault_estimator = SensorFaultEstimator(
                 bucket_name=bucket_name, model_path=model_path
             )
 
-            if heart_stroke_estimator.is_model_present(model_path=model_path):
-                return heart_stroke_estimator
+            if sensor_fault_estimator.is_model_present(model_path=model_path):
+                return sensor_fault_estimator
             return None
         except Exception as e:
-            raise HeartStrokeException(e, sys)
+            raise SensorFaultException(e, sys)
     
     def evaluate_model(self) -> EvaluateModelResponse:
         """
